@@ -18,6 +18,22 @@ function App() {
           <input type="file" style={{display:'none'}} capture="camera" accept="image/*" id="cameraInput" name="cameraInput"></input>
         </div>
       );
+    } else {
+      return (
+        <div>
+          <div className="mt-4 ios-camera-container">
+            <div className="ios-camera-viewfinder">
+              {capturedImage && <img src={capturedImage} alt="Captured" className="img-fluid" />}
+              <video ref={videoRef} className="ios-video" playsInline autoPlay muted />
+              <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"></input>
+            </div>
+          </div>
+
+          <div className="ios-button-container">
+            <button className="btn ios-button" onClick={captureImage}>Capture Image</button>
+          </div>
+        </div>
+      );
     }
   }
 
@@ -59,17 +75,6 @@ function App() {
   return (
   <div className="ios-style ios-container">
     <h1 className="mt-5 mb-4 text-center ios-title">Pay.me</h1>
-    {/* <div className="mt-4 ios-camera-container">
-      <div className="ios-camera-viewfinder">
-        {capturedImage && <img src={capturedImage} alt="Captured" className="img-fluid" />}
-        <video ref={videoRef} className="ios-video" playsInline autoPlay muted />
-        <input type="file" capture="camera" accept="image/*" id="cameraInput" name="cameraInput"></input>
-      </div>
-    </div>
-
-    <div className="ios-button-container">
-      <button className="btn ios-button" onClick={captureImage}>Capture Image</button>
-    </div> */}
     {renderUploadSection()}
   </div>
 );

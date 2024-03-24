@@ -63,20 +63,20 @@
   max-width: 320px;
 }
 
-/* .ios-camera-viewfinder {
+.ios-camera-viewfinder {
   position: relative;
   width: 100%;
-  padding-top: calc(100% * 16 / 9); /*16:9 aspect ratio
-} */
+  padding-top: calc(100% * 16 / 9); /*16:9 aspect ratio*/
+}
 
-/* .ios-camera-viewfinder video {
+.ios-camera-viewfinder video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-} */
+}
 
 .ios-button-container {
   margin-top: 20px;
@@ -95,4 +95,5 @@
 
 .ios-button:hover {
   background-color: #0056b3;
+  color: #fff;
 }

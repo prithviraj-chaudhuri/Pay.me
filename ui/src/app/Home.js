@@ -83,8 +83,8 @@ function Home() {
   };
 
   return (
-    <div class="row">
-      <div class="col-sm-12 center-div">
+    <div class="row width-100">
+      <div class="col-sm-12 center-div pad-top">
         {renderUploadSection()}
       </div>
     </div>

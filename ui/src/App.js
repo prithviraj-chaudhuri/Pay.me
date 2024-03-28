@@ -6,6 +6,7 @@ import './common/helper.css';
 
 import Navbar from './common/Navbar';
 import Home from './app/Home';
+import Users from './app/Users';
 import Split from './app/Split';
 // import Home from './app/Final';
 
@@ -16,6 +17,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/split" element={<Split />} />
           {/* <Route path="/final" element={<Final />}  /> */}
         </Routes>

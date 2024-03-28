@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { callReceiptApi } from '../common/helper';
+import Cookies from 'js-cookie';
+import { callReceiptApi, getExpirationDate } from '../common/helper';
 
 import './Home.css';
 
@@ -7,7 +8,7 @@ function Home() {
 
   const [showLoading, setShowLoading] = useState(false);
 
-  const addedImage = async (e) => {
+  const handleCameraInput = async (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -19,15 +20,16 @@ function Home() {
     } else {
       console.log('Response:', response);
       setShowLoading(false);
+      Cookies.set('receiptData', JSON.stringify(response), { expires: getExpirationDate() });
+      window.location.href = '/users';
     }
-    
   }
 
   const renderUploadSection = () => {
       return (
         <div>
           <label htmlFor="cameraInput" className="btn ios-button">Upload Image</label> 
-          <input type="file" style={{display:'none'}} capture="camera" accept="image/*" id="cameraInput" onChange={addedImage} name="cameraInput"></input>
+          <input type="file" style={{display:'none'}} capture="camera" accept="image/*" id="cameraInput" onChange={handleCameraInput} name="cameraInput"></input>
         </div>
       );
   }

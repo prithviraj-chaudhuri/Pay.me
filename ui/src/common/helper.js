@@ -47,3 +47,9 @@ export async function callReceiptApi(image) {
     return false;
   }
 }
+
+export function getExpirationDate() {
+  const expirationDate = new Date();
+  expirationDate.setTime(expirationDate.getTime() + (60 * 60 * 1000)); // 1 hour from now
+  return expirationDate;
+}

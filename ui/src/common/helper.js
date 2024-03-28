@@ -17,7 +17,7 @@ export function checkDeviceType() {
 }
 
 export async function callReceiptApi(image) {
-  const url = 'http://192.168.1.10:8000/receipt/json';
+  const url = 'http://192.168.1.180:8000/receipt/json';
 
   const formData = new FormData();
   formData.append('image', image);
@@ -36,15 +36,14 @@ export async function callReceiptApi(image) {
     });
 
     if (response.status !== 200) {
-      throw new Error('Error uploading image');
+      console.error('Error:', response.status);
+      return false;
     }
 
     const data = response.data;
-    // Process the response data here
-    console.log(data);
     return data;
   } catch (error) {
-    // Handle any errors here
     console.error('Error:', error);
+    return false;
   }
 }

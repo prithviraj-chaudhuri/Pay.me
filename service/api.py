@@ -15,7 +15,7 @@ from constants import (
 app = FastAPI()
 
 origins = [
-    "http://192.168.1.10:3000",
+    "http://192.168.1.180:3000",
     "http://localhost:3000",
 ]
 

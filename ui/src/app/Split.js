@@ -19,10 +19,24 @@ function Split() {
         if (usersCookie) {
             setUsers(JSON.parse(usersCookie));
         }
+        
     }, []);
+
+    const setItemSelectedUsers = (itemNumber) => {
+        const updatedReceiptData = { ...receiptData };
+        const selectedUsers = users.filter((user, index) => {
+            const checkbox = document.getElementById(`btn-check-add-${index}`);
+            return checkbox.checked;
+        });
+        updatedReceiptData.items[itemNumber].selectedUsers = selectedUsers;
+        setReceiptData(updatedReceiptData);
+        Cookies.set('receiptData', JSON.stringify(updatedReceiptData));
+    }
+
 
     const handleNext = () => {
         if (itemNumber < receiptData.items.length - 1) {
+            setItemSelectedUsers(itemNumber);
             setItemNumber(itemNumber + 1);
         } else {
             window.location.href = '/final';
@@ -32,14 +46,7 @@ function Split() {
     const handlePrevious = () => {
 
         if (itemNumber > 0) {
-            const updatedReceiptData = { ...receiptData };
-            const selectedUsers = users.filter((user, index) => {
-                const checkbox = document.getElementById(`btn-check-add-${index}`);
-                return checkbox.checked;
-            });
-            updatedReceiptData.items[itemNumber].selectedUsers = selectedUsers;
-            setReceiptData(updatedReceiptData);
-            Cookies.set('receiptData', JSON.stringify(updatedReceiptData));
+            setItemSelectedUsers(itemNumber);
             setItemNumber(itemNumber - 1);
         } else { 
             window.location.href = '/users';
@@ -60,17 +67,20 @@ function Split() {
                             <h5 class="card-title">{receiptData.items[itemNumber].price}</h5>
                         }
                         <p class="card-text">Select people to split this cost with</p>
-                        {users && users.map((user, index) => (
-                            <div class="card person-card" key={index}>
-                                <div class="card-body row">
-                                    <div class="col-6">{user}</div>
-                                    <div class="col-6">
-                                        <input type="checkbox" class="btn-check" id={`btn-check-add-${index}`} autocomplete="off"></input>
-                                        <label class="btn btn-outline-primary" for={`btn-check-add-${index}`} >Add</label>
+                        {users && users.map((user, index) => {
+                            const selected = receiptData && receiptData.items[itemNumber].selectedUsers && receiptData.items[itemNumber].selectedUsers.includes(user);
+                            return (
+                                <div class="card person-card" key={index}>
+                                    <div class="card-body row">
+                                        <div class="col-6">{user}</div>
+                                        <div class="col-6">
+                                            <input type="checkbox" class="btn-check" id={`btn-check-add-${index}`} autocomplete="off" checked={selected}></input>
+                                            <label class="btn btn-outline-primary " for={`btn-check-add-${index}`} >Add</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                         <br />
                         <div>
                             <div class="row">

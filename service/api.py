@@ -6,6 +6,7 @@ import shutil
 
 import read_receipt
 import llm_scripts
+import json
 
 from constants import (
     BASIC_AUTH_USERNAME,
@@ -35,6 +36,19 @@ def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
     if credentials.username == BASIC_AUTH_USERNAME and credentials.password == BASIC_AUTH_PASSWORD:
         return credentials.username
     return None
+
+@app.post("/receipt/json/sample")
+async def get_receipt_json_sample(image: UploadFile, username: str = Depends(get_current_username)):
+    if username is None:
+        return {"message": "Authentication failed"}
+    
+    print("Received image "+image.filename+" from user "+username)
+    # Save the JSON to a file
+    json_file_path = "/Users/prithvirajchaudhuri/Desktop/Other/Projects/Pay.me/tmp/sample.json"
+    receipt_json = json.load(open(json_file_path, "r"))
+        
+    # Return a JSON response
+    return receipt_json
 
 @app.post("/receipt/json")
 async def get_receipt_json(image: UploadFile, username: str = Depends(get_current_username)):

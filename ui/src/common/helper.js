@@ -17,7 +17,7 @@ export function checkDeviceType() {
 }
 
 export async function callReceiptApi(image) {
-  const url = 'http://192.168.1.180:8000/receipt/json';
+  const url = 'http://localhost:8000/receipt/json/sample';
 
   const formData = new FormData();
   formData.append('image', image);
